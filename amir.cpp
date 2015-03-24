@@ -3,7 +3,7 @@
 // Earthquakes' Events Analysis
 // By Amirhossein Naemi
 // March, 2015
-// GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v2
+// GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v3
 // This program reads in one integer from a amir.in file and returns the
 //
 //---------------------------------------------------------------------------

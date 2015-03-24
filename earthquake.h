@@ -3,7 +3,7 @@
 // Earthquakes' Events Analysis
 // By Amirhossein Naemi
 // March, 2015
-// GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v2
+// GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v3
 // This program reads in one integer from a amir.in file and returns the
 //
 //---------------------------------------------------------------------------
@@ -50,7 +50,10 @@ enum magnitude_type {
     Mw
 };
 
-struct earthquake {
+class earthquake {
+public:
+    void earthquake::set_month(months monthvalue);
+    months earthquake::get_month();
     string id;
     string date;
     string time;
@@ -68,6 +71,24 @@ struct earthquake {
     int sec;
     double ms;
     double magnitude;
+private:
+    //string id;
+    //string date;
+    //string time;
+    //string tz;
+    //string earthquake_name;
+    //months month;
+    //magnitude_type magnitude_Type;
+    //double lat;
+    //double lon;
+    //double elv;
+    //int yr;
+    //int day;
+    //int hr;
+    //int min;
+    //int sec;
+    //double ms;
+    //double magnitude;
 };
 
 int str2int(const std::string& str);

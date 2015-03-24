@@ -3,7 +3,7 @@
 // Earthquakes' Events Analysis
 // By Amirhossein Naemi
 // March, 2015
-// GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v2
+// GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v3
 // This program reads in one integer from a amir.in file and returns the
 //
 //---------------------------------------------------------------------------
@@ -79,3 +79,10 @@ string type_of_inst_string(types_of_instrument type_of_inst) {
     }
 }
 
+void station::set_network_code(network_codes network_codes_value){
+    network_code = network_codes_value;
+}
+
+network_codes station::get_network_code(){
+    return CE;
+}

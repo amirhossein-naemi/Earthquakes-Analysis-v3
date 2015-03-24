@@ -3,7 +3,7 @@
 // Earthquakes' Events Analysis
 // By Amirhossein Naemi
 // March, 2015
-// GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v2
+// GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v3
 // This program reads in one integer from a amir.in file and returns the
 //
 //---------------------------------------------------------------------------
@@ -51,12 +51,22 @@ enum Orientation {
 // , one per row, but no more than 300 (this limit is important, as you are
 // supposed to crete an array to store the input entries). Each entry in the
 // table is composed of the following:
-struct station {
+
+class station {
+public:
+    void station::set_network_code(network_codes network_codes_value);
+    network_codes station::get_network_code();
     network_codes       network_code;
     string              station_name;
     types_of_band       type_of_band;
     types_of_instrument type_of_instrument;
     string              Orientation;
+private:
+    //network_codes       network_code;
+    //string              station_name;
+    //types_of_band       type_of_band;
+    //types_of_instrument type_of_instrument;
+    //string              Orientation;
 };
 
 int network_code_enum(string str_net_code);
