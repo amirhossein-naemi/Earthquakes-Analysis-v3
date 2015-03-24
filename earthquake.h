@@ -59,7 +59,6 @@ public:
     string time;
     string tz;
     string earthquake_name;
-    months month;
     magnitude_type magnitude_Type;
     double lat;
     double lon;
@@ -77,7 +76,6 @@ private:
     //string time;
     //string tz;
     //string earthquake_name;
-    //months month;
     //magnitude_type magnitude_Type;
     //double lat;
     //double lon;
