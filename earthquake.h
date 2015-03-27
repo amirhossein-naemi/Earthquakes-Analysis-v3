@@ -27,12 +27,12 @@
 using namespace std;
 
 enum months {
-    January = 1, February, March, April, May, June,
+    January , February, March, April, May, June,
     July, August, September, October, November, December
 };
-//const char *mnth_enum2str[] = { "January ", " February", " March", " April", " May", " June", "July"," August"," September"," October"," November"," December"};
+const char *mnth_int2str[] = { "January ", " February", " March", " April", " May", " June", "July"," August"," September"," October"," November"," December"};
 
-string mnth_enum2str(months mnth);
+//string mnth_enum2str(months mnth);
 
 // Case Insensitive
 enum magnitude_type {
@@ -64,7 +64,8 @@ public:
     double magnitude;
 
     months get_month() { return month; }
-    string get_month_str() { return mnth_enum2str(month); }
+    //string get_month_str() { return mnth_enum2str(month); }
+    string get_month_str() { return mnth_int2str[month]; }
     //months earthquake::get_month();
     void set_month(string m);
     void set_month(int m);
