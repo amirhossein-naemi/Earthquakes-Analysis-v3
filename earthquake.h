@@ -27,19 +27,10 @@
 using namespace std;
 
 enum months {
-    January = 1,
-    February,
-    March,
-    April,
-    May,
-    June,
-    July,
-    August,
-    September,
-    October,
-    November,
-    December
+    January = 1, February, March, April, May, June,
+    July, August, September, October, November, December
 };
+
 string mnth_enum2str(months mnth);
 
 // Case Insensitive
@@ -59,6 +50,7 @@ public:
     string time;
     string tz;
     string earthquake_name;
+    months month;
     magnitude_type magnitude_Type;
     double lat;
     double lon;
@@ -76,6 +68,7 @@ private:
     //string time;
     //string tz;
     //string earthquake_name;
+    //months month;
     //magnitude_type magnitude_Type;
     //double lat;
     //double lon;

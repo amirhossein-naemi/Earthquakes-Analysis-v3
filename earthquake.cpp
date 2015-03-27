@@ -49,95 +49,66 @@ int str2int(const std::string& str)
 
 string mnth_enum2str(months mnth) {
 
-    string ret = "January";
-
     switch (mnth) {
     case January:
         return "January";
-        break;
     case February:
         return "February";
-        break;
     case March:
         return "March";
-        break;
     case April:
         return "April";
-        break;
     case May:
         return "May";
-        break;
     case June:
         return "June";
-        break;
     case July:
         return "July";
-        break;
     case August:
         return "August";
-        break;
     case September:
         return "September";
-        break;
     case October:
         return "October";
-        break;
     case November:
         return "November";
-        break;
     case December:
         return "December";
-        break;
+    default:
+        return "ILLEGAL";
     }
-
-    return ret;
 }
 
 months mnth_str2enum(string mnth) {
 
     int imnth = str2int(mnth);
-    months ret = January;
-    
+
     switch (imnth) {
     case 1:
-        ret = January;
-        break;
+        return January;
     case 2:
-        ret =  February;
-        break;
+        return February;
     case 3:
-        ret =  March;
-        break;
+        return  March;
     case 4:
-        ret =  April;
-        break;
+        return April;
     case 5:
-        ret =  May;
-        break;
+        return  May;
     case 6:
-        ret =  June;
-        break;
+        return  June;
     case 7:
-        ret =  July;
-        break;
+        return July;
     case 8:
-        ret =  August;
-        break;
+        return August;
     case 9:
-        ret =  September;
-        break;
+        return September;
     case 10:
-        ret =  October;
-        break;
+        return  October;
     case 11:
-        ret =  November;
-        break;
+        return November;
     case 12:
-        ret =  December;
-        break;
+        return December;
     }
-    
-    return ret;
 }
 
 void earthquake::set_month(months monthvalue){
