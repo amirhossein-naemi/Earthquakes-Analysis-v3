@@ -25,7 +25,7 @@ enum types_of_band {
 
 // Case Insensitive
 enum types_of_instrument {
-    High_Gain = 1,
+    High_Gain,
     Low_Gain,
     Accelerometer
 };
@@ -33,7 +33,7 @@ enum types_of_instrument {
 
 // Case Sensitive
 enum network_codes {
-    CE = 1,
+    CE,
     CI,
     FA,
     N,
@@ -53,21 +53,33 @@ enum Orientation {
 
 class station {
 public:
-    void set_network_code(network_codes network_codes_value);
-    network_codes get_network_code();
+    //network_codes       network_code;
+    //types_of_band       type_of_band;
+    //types_of_instrument type_of_instrument;
+
+    types_of_band get_type_of_band() { return type_of_band; }
+    bool set_type_of_band(types_of_band);
+    bool set_type_of_band(string);
+
+    types_of_instrument get_type_of_instrument() { return type_of_instrument; }
+    bool set_type_of_instrument(types_of_instrument);
+    bool set_type_of_instrument(string);
+
+    network_codes get_network_code() { return network_code; }
+    bool set_network_code(network_codes);
+    bool set_network_code(string);
+
+    string get_station_name() { return station_name; }
+    bool set_station_name(string);
+
+    string get_orientation() { return Orientation; }
+    bool set_orientation(string);
+
+private:
     network_codes       network_code;
     string              station_name;
     types_of_band       type_of_band;
     types_of_instrument type_of_instrument;
-    //string              Orientation;
-    string get_orientation() { return Orientation; }
-    void set_orientation(string);
-
-private:
-    //network_codes       network_code;
-    //string              station_name;
-    //types_of_band       type_of_band;
-    //types_of_instrument type_of_instrument;
     string              Orientation;
 };
 

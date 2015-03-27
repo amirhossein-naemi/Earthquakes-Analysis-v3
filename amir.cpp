@@ -18,7 +18,7 @@
 
 using namespace std;
 
-earthquake EQ;// = {};
+earthquake EQ;
 const int  MAXDATA = 300;
 station    stations[MAXDATA];
 int valid, invalid, sign;
@@ -104,9 +104,7 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
         {
             in >> eqst >> eqbnd >> eqins >> eqor;
 
-            if (isok_network_code(eqnet))
-                eqtmp.network_code = (network_codes)network_code_enum(eqnet);
-            else
+            if (!eqtmp.set_network_code(eqnet))
             {
                 noerr = false;
                 str << "Entry # " << setw(3) << right << cnt
@@ -114,9 +112,7 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
                 print(log, str);
             }
 
-            if (isok_station_code(eqst))
-                eqtmp.station_name = eqst;
-            else
+            if (!eqtmp.set_station_name(eqst))
             {
                 noerr = false;
                 str << "Entry # " << setw(3) << right << cnt
@@ -124,9 +120,7 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
                 print(log, str);
             }
 
-            if (isok_type_of_band(eqbnd))
-                eqtmp.type_of_band = (types_of_band)type_of_band_enum(eqbnd);
-            else
+            if (!eqtmp.set_type_of_band(eqbnd))
             {
                 noerr = false;
                 str << "Entry # " << setw(3) << cnt
@@ -134,10 +128,7 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
                 print(log, str);
             }
 
-            if (isok_type_of_instrument(eqins))
-                eqtmp.type_of_instrument =
-                (types_of_instrument)type_of_instrument_enum(eqins);
-            else
+            if (!eqtmp.set_type_of_instrument(eqins))
             {
                 noerr = false;
                 str << "Entry # " << setw(3) << cnt
@@ -145,9 +136,7 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
                 print(log, str);
             }
 
-            if (isok_Orientation(eqor))
-                eqtmp.set_orientation(eqor);
-            else
+            if (!eqtmp.set_orientation(eqor))
             {
                 noerr = false;
                 str << "Entry # " << setw(3) << cnt
@@ -170,8 +159,6 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
             noerr = false;
 
         if (noerr) {
-
-
             stations[i] = eqtmp;
             i++;
         }
@@ -208,10 +195,10 @@ void process(ifstream & ifile, ofstream & log){
         for (size_t j = 0; j < n; j++) {
 
             str2 << EQ.id << '.'
-                << network_codes_str[stations[i].network_code - 1]
-                << '.' << stations[i].station_name << '.'
-                << types_of_band_char[stations[i].type_of_band - 1]
-                << types_of_instrument_char[stations[i].type_of_instrument - 1]
+                << network_codes_str[stations[i].get_network_code()] /// err
+                << '.' << stations[i].get_station_name() << '.'
+                << types_of_band_char[stations[i].get_type_of_band()]
+                << types_of_instrument_char[stations[i].get_type_of_instrument()]
                 << or3[j] 
                 << endl;
 
@@ -259,9 +246,9 @@ int main() {
     process(in, out);
     print(out, str);
 
-    str << endl << "Total invalid entries ignored: " << invalid << endl
-        << "Totoal valid entries read: "   << valid << endl
-        << "Total singal names produced: " << sign << endl;
+    str << endl << "Total invalid entries ignored: " << setw(2) << invalid << endl
+        << "Total valid entries read: " << setw(7) << valid << endl
+        << "Total signals produced: " << setw(9) << sign << endl;
     print(log, str);
 
     if (log.is_open())

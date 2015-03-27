@@ -622,19 +622,6 @@ void earthquake::set_mag(string lm, ofstream & log){
 
 
 
-int type_of_instrument_enum(string str_type_of_inst) {
-    toupper_str(str_type_of_inst);
-    //Case insensitive
-    if (str_type_of_inst == "LOW-GAIN")
-        return 1;
-    if (str_type_of_inst == "HIGH-GAIN")
-        return 2;
-    if (str_type_of_inst == "ACCELEROMETER")
-        return 2;
-    return -1;
-}
-
-
 
 // **************************** general functions (put them on a seperate file?) *******************
 
