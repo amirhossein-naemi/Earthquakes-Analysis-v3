@@ -4,7 +4,6 @@
 // By Amirhossein Naemi
 // March, 2015
 // GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v3
-// This program reads in one integer from a amir.in file and returns the
 //
 //---------------------------------------------------------------------------
 
@@ -199,13 +198,13 @@ void process(ifstream & ifile, ofstream & log){
         << EQ.earthquake_name << " [" << EQ.id << "] ("
         << EQ.get_lon() << ", " << EQ.get_lat() << ", " << EQ.get_elv() << ")" << endl;
 
-    
     sign = 0;
-    for (int i = 0; i <= valid; i++) {
-        //char or[] = stations[i].get_orientation();
-        //string or = stations[i].get_orientation();
-        //int n = stations[i].get_orientation.size();
-        int n = 2;// or.size();
+    
+    for (int i = 0; i < valid; i++) {
+        string s = stations[i].get_orientation();
+        char or3[5] = {};
+        strcpy(or3, s.c_str());
+        int n = s.size();
         for (size_t j = 0; j < n; j++) {
 
             str2 << EQ.id << '.'
@@ -213,7 +212,7 @@ void process(ifstream & ifile, ofstream & log){
                 << '.' << stations[i].station_name << '.'
                 << types_of_band_char[stations[i].type_of_band - 1]
                 << types_of_instrument_char[stations[i].type_of_instrument - 1]
-                //<< or[j] 
+                << or3[j] 
                 << endl;
 
             sign++;
