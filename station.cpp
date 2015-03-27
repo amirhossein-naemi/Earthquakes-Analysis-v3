@@ -9,32 +9,7 @@
 //---------------------------------------------------------------------------
 
 #include "station.h"
-
-void toupper_str(std::string& str) {
-
-    for (size_t i = 0; i < str.size(); ++i)
-        str[i] = toupper(str[i]);
-
-}
-
-string toupper_str_C(std::string str) {
-
-    toupper_str(str);
-
-    return str;
-}
-
-int type_of_instrument_enum(string str_type_of_inst) {
-    toupper_str(str_type_of_inst);
-    //Case insensitive
-    if (str_type_of_inst == "LOW-GAIN")
-        return 1;
-    if (str_type_of_inst == "HIGH-GAIN")
-        return 2;
-    if (str_type_of_inst == "ACCELEROMETER")
-        return 2;
-    return -1;
-}
+#include "earthquake.h" // to use some functions like toupper_str
 
 int network_code_enum(string str_net_code) {
     // Case Sensitive

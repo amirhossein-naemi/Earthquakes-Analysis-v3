@@ -15,7 +15,7 @@
 #include <sys/timeb.h>
 #include <iomanip>
 #include <sstream>
-#include <vector>
+
 
 using namespace std;
 
@@ -25,38 +25,8 @@ station    stations[MAXDATA];
 
 int valid, invalid, sign;
 
-std::vector<std::string> &split(const std::string &s, char delim,
-    std::vector<std::string> &elems) {
 
-    std::stringstream ss(s);
-    std::string item;
-    while (std::getline(ss, item, delim)) {
-        elems.push_back(item);
-    }
 
-    return elems;
-}
-
-std::vector<std::string> split(const std::string &s, char delim) {
-
-    std::vector<std::string> elems;
-    split(s, delim, elems);
-
-    return elems;
-}
-
-void print(ofstream & o, stringstream & txt, bool only2file = false) {
-
-    std::cout.precision(3);
-    o.precision(3);
-
-    if (!only2file) cout << txt.str();
-
-    o << txt.str();
-
-    txt.str(std::string());
-    txt.clear();
-}
 
 void open_input(ifstream & ifile, string ifilename, ofstream & log) {
     // Sanity check on the file stream
@@ -172,6 +142,11 @@ bool isok_type_of_instrument(string str){
     return true;
 }
 
+
+
+
+
+
 bool isok_Orientation(string str){
     // Orientation: Case insensitive: a one to three characters combination.
     // Each character can be any of the following two options (alphabetic or
@@ -214,133 +189,12 @@ bool isok_magnitude_size(double magnitude) {
     return true;
 }
 
-bool isok_date() {
-
-    if (EQ.yr > 2100 || EQ.yr<1900)
-        return false;
-
-    if (EQ.day>31 || EQ.day < 1)
-        return false;
-
-    return true;
-
-}
-
-bool isok_time(string str) {
-    string delim = "/";
-    return true;
-}
-
-bool isok_timezone(string str) {
-    toupper_str(str);
-    if (str == "PST" || str == "CST" || str == "EST" || str == "MST")
-        return true;
-    return false;
-}
-
 string types_of_band_str[3] = { "Longperiod", "Shortperiod", "Broadband" };
 char types_of_band_char[3]        = { 'L', 'B', 'H' };
 string types_of_instrument_str[3] = { "High_Gain", "Low_Gain",
 "Accelerometer" };
 char types_of_instrument_char[3] = { 'H', 'L', 'N' };
 string network_codes_str[5]      = { "CE", "CI", "FA", "NP", "WR" };
-
-void parse_dt(string str2, ofstream & log)
-{
-
-    stringstream stro;
-    string dt, tm, tz;
-    string year, mnth, day, hour, min, sec, ms;
-
-    try {
-     
-    char str[50];
-    strncpy(str, str2.c_str(), sizeof(str));
-    str[sizeof(str)-1] = 0;
-
-    replace(str, str + strlen(str), '/', ' ');
-    replace(str, str + strlen(str), ':', ' ');
-
-    std::vector<std::string> aln = split(str2  , ' ');
-    std::vector<std::string> adt = split(aln[0], '/');
-    std::vector<std::string> atm = split(aln[1], ':');
-    std::vector<std::string> asc = split(atm[2], '.');
-
-    bool dateisOK = true;
-    bool timeisOK = true;
-
-    size_t n1 = adt.size();
-    for (size_t i = 0; i < n1; i++)
-    {
-        size_t n2 = adt[i].size();
-        for (size_t ii = 0; ii < n2; ii++)
-        {
-            if (!isdigit(adt[i][ii]))
-                // there is an error
-                dateisOK=false;
-        }
-    }
-
-    n1 = atm.size() - 1;
-    for (size_t i = 0; i < n1; i++)
-    {
-        size_t n2 = atm[i].size();
-        for (size_t ii = 0; ii < n2; ii++)
-        {
-            if (!isdigit(atm[i][ii]))
-                // there is an error
-                timeisOK = false;
-        }
-    }
-    
-    if (dateisOK)
-    {
-        day = adt[1];
-        year = adt[2];
-        hour = atm[0];
-
-        //EQ.month = mnth_str2enum(adt[0]);
-        EQ.set_month(adt[0]);
-        EQ.day = str2int(day);
-        EQ.yr = str2int(year);
-    }
-
-    if (timeisOK)
-    {
-        min = atm[1];
-        sec = asc[0];
-        ms = asc[1];
-        tz = aln[2];
-
-        EQ.hr = str2int(hour);
-        EQ.min = str2int(min);
-        EQ.sec = str2int(sec);
-        EQ.ms = str2int(ms);
-        EQ.tz = tz;
-    }
-
-
-    if (!isok_date() || !dateisOK)
-    {
-        stro << "Error! date is invalid" << endl;
-        print(log, stro);
-        exit(0);
-    }
-
-    if (!isok_time(aln[1]) || !isok_timezone(tz) || !timeisOK)
-    {
-        stro << "Error! time is invalid" << endl;
-        print(log, stro);
-        exit(0);
-    }
-    
-    }
-    catch (int n) {
-        stro << "Error! date/time is invalid" << endl;
-        print(log, stro);
-        exit(0);
-    }
-}
 
 void parse_mag(string lm, ofstream & log){
     
@@ -366,7 +220,7 @@ void parse_mag(string lm, ofstream & log){
     char cmagnitude_size[50];
     strcpy(cmagnitude_size, magnitude_size.c_str());
 
-    fmagnitude_size = std::strtod(cmagnitude_size, &pEnd);
+       fmagnitude_size = std::strtod(cmagnitude_size, &pEnd);
     if (!isok_magnitude(magnitude_type))
     {
         str << "Error! Magnitude type is invalid" << endl;
@@ -403,7 +257,7 @@ void read_header(ifstream & in, ofstream & log) {
     std::getline(in, lnam);
     std::getline(in, lm);
 
-    parse_dt(ldt, log);
+    EQ.set_dt(ldt, log);
     parse_mag(lm, log);
 
     // First row: Event ID
@@ -524,8 +378,8 @@ void process(ifstream & ifile, ofstream & log){
 
     stringstream str, str2;
     str.precision(3);
-    str << "# " << EQ.day << " " << EQ.get_month_str() << " " << EQ.yr
-        << " " << EQ.hr << ":" << EQ.min << ":" << EQ.sec << ":"
+    str << "# " << EQ.get_day() << " " << EQ.get_month_str() << " " << EQ.get_year()
+        << " " << EQ.get_hour() << ":" << EQ.get_min() << ":" << EQ.get_sec() << ":"
         << std::setprecision(3) << EQ.ms << " " << EQ.tz << " "
         << EQ.magnitude_Type << " " << EQ.magnitude << " "
         << EQ.earthquake_name << " [" << EQ.id << "] ("

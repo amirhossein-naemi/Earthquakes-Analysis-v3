@@ -22,21 +22,26 @@
 #include <cctype>
 #include <ctype.h>
 #include <algorithm>
-
+#include <vector>
+#include <ctime>
+#include <time.h>
+#include <sys/timeb.h>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
-enum months {
-    January , February, March, April, May, June,
-    July, August, September, October, November, December
-};
-const char *mnth_int2str[] = { "January ", " February", " March", " April", " May", " June", "July"," August"," September"," October"," November"," December"};
 
 //string mnth_enum2str(months mnth);
 
+enum months {
+    January, February, March, April, May, June,
+    July, August, September, October, November, December
+};
+
 // Case Insensitive
 enum magnitude_type {
-    ML = 1,
+    ML,
     Ms,
     Mb,
     Mw
@@ -55,21 +60,53 @@ public:
     double lat;
     double lon;
     double elv;
-    int yr;
-    int day;
-    int hr;
-    int min;
-    int sec;
+    //int yr;
+    //int day;
+    //int hr;
+    //int min;
+    //int sec;
     double ms;
     double magnitude;
 
+    int get_year() { return yr; }
+    void set_year(int yr);
+    void set_year(string day);
+
+    int get_day() { return day; }
+    void set_day(int day);
+    void set_day(string day);
+
+    int get_hour() { return hr; }
+    void set_hour(int h);
+    void set_hour(string h);
+
+    int get_min() { return min; }
+    void set_min(int h);
+    void set_min(string h);
+
+    int get_sec() { return sec; }
+    void set_sec(int h);
+    void set_sec(string h);
+
     months get_month() { return month; }
     //string get_month_str() { return mnth_enum2str(month); }
-    string get_month_str() { return mnth_int2str[month]; }
+    string get_month_str();
     //months earthquake::get_month();
     void set_month(string m);
-    void set_month(int m);
+    void set_month(int m); // not necessary
     void set_month(months monthvalue);
+    
+    void set_dt(string str2, ofstream & log);
+
+    //Proxy(My const* owner) : myOwner(owner) {}
+    //operator int() const
+    //{
+    //    return myOwner->getInt();
+    //}
+    //operator char() const
+    //{
+    //    return myOwner->getChar();
+    //}
 
 private:
     //string id;
@@ -82,11 +119,11 @@ private:
     //double lat;
     //double lon;
     //double elv;
-    //int yr;
-    //int day;
-    //int hr;
-    //int min;
-    //int sec;
+    int yr;
+    int day;
+    int hr;
+    int min;
+    int sec;
     //double ms;
     //double magnitude;
 };
@@ -95,4 +132,11 @@ int str2int(const std::string& str);
 
 months mnth_str2enum(string mnth);
 
+void print(ofstream & , stringstream &, bool only2file = false);
+
+inline void toupper_str(std::string& str);
+string toupper_str_C(std::string str);
+std::vector<std::string> &split(const std::string &s, char delim,
+    std::vector<std::string> &elems);
+std::vector<std::string> split(const std::string &s, char delim);
 #endif
