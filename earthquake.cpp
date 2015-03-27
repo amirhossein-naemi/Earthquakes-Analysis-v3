@@ -89,13 +89,13 @@ months mnth_str2enum(string mnth) {
     case 2:
         return February;
     case 3:
-        return  March;
+        return March;
     case 4:
         return April;
     case 5:
-        return  May;
+        return May;
     case 6:
-        return  June;
+        return June;
     case 7:
         return July;
     case 8:
@@ -108,13 +108,43 @@ months mnth_str2enum(string mnth) {
         return November;
     case 12:
         return December;
+    //default:
+    //    return -1;
     }
 }
 
-void earthquake::set_month(months monthvalue){
-    month = monthvalue;
+void earthquake::set_month(string m) {
+    try
+    {
+        month = mnth_str2enum(m);
+    }
+    catch (int e)
+    {
+        cout << "Value of month is invalid" << endl;
+    }
 }
+void earthquake::set_month(int m2) {
 
-months earthquake::get_month(){
-    return January;
+    if (m2 < 1 || m2 > 12)
+        cout << "Value of month is invalid" << endl;
+    else
+    {
+        months m = static_cast<months>(m2);
+        month = m;
+    }
+
 }
+void earthquake::set_month(months monthvalue) {
+    try
+    {
+        month = monthvalue;
+    }
+        
+    catch (int e)
+    {
+        cout << "Value of month is invalid" << endl;
+    }
+}
+//months earthquake::get_month(){
+//    return January;
+//}

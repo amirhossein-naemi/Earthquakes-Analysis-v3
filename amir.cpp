@@ -299,7 +299,8 @@ void parse_dt(string str2, ofstream & log)
         year = adt[2];
         hour = atm[0];
 
-        EQ.month = mnth_str2enum(adt[0]);
+        //EQ.month = mnth_str2enum(adt[0]);
+        EQ.set_month(adt[0]);
         EQ.day = str2int(day);
         EQ.yr = str2int(year);
     }
@@ -523,7 +524,7 @@ void process(ifstream & ifile, ofstream & log){
 
     stringstream str, str2;
     str.precision(3);
-    str << "# " << EQ.day << " " << mnth_enum2str(EQ.month) << " " << EQ.yr
+    str << "# " << EQ.day << " " << EQ.get_month_str() << " " << EQ.yr
         << " " << EQ.hr << ":" << EQ.min << ":" << EQ.sec << ":"
         << std::setprecision(3) << EQ.ms << " " << EQ.tz << " "
         << EQ.magnitude_Type << " " << EQ.magnitude << " "

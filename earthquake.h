@@ -30,6 +30,7 @@ enum months {
     January = 1, February, March, April, May, June,
     July, August, September, October, November, December
 };
+//const char *mnth_enum2str[] = { "January ", " February", " March", " April", " May", " June", "July"," August"," September"," October"," November"," December"};
 
 string mnth_enum2str(months mnth);
 
@@ -43,14 +44,13 @@ enum magnitude_type {
 
 class earthquake {
 public:
-    void earthquake::set_month(months monthvalue);
-    months earthquake::get_month();
+    
     string id;
     string date;
     string time;
     string tz;
     string earthquake_name;
-    months month;
+    
     magnitude_type magnitude_Type;
     double lat;
     double lon;
@@ -62,13 +62,21 @@ public:
     int sec;
     double ms;
     double magnitude;
+
+    months get_month() { return month; }
+    string get_month_str() { return mnth_enum2str(month); }
+    //months earthquake::get_month();
+    void set_month(string m);
+    void set_month(int m);
+    void set_month(months monthvalue);
+
 private:
     //string id;
     //string date;
     //string time;
     //string tz;
     //string earthquake_name;
-    //months month;
+    months month;
     //magnitude_type magnitude_Type;
     //double lat;
     //double lon;
