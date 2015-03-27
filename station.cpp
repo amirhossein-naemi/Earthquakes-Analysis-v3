@@ -302,7 +302,7 @@ bool station::set_type_of_instrument(types_of_instrument a) {
 bool station::set_type_of_instrument(string a){
     try
     {
-            if (!isok_type_of_instrument(a))
+        if (!isok_type_of_instrument(a))
             throw (51);
         else
             type_of_instrument =

@@ -52,11 +52,11 @@ void open_output(ofstream & o, string ofilename) {
 
 
 string types_of_band_str[3] = { "Longperiod", "Shortperiod", "Broadband" };
-char types_of_band_char[3]        = { 'L', 'B', 'H' };
+char types_of_band_char[3] = { 'L', 'B', 'H' };
 string types_of_instrument_str[3] = { "High_Gain", "Low_Gain",
 "Accelerometer" };
 char types_of_instrument_char[3] = { 'H', 'L', 'N' };
-string network_codes_str[5]      = { "CE", "CI", "FA", "NP", "WR" };
+string network_codes_str[5] = { "CE", "CI", "FA", "NP", "WR" };
 
 
 
@@ -176,17 +176,19 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
 
 void process(ifstream & ifile, ofstream & log){
 
+    double el = EQ.get_lon();
     stringstream str, str2;
     str.precision(3);
     str << "# " << EQ.get_day() << " " << EQ.get_month_str() << " " << EQ.get_year()
         << " " << EQ.get_hour() << ":" << EQ.get_min() << ":" << EQ.get_sec() << ":"
-        << std::setprecision(3) << EQ.get_ms() << " " << EQ.tz << " "
-        << EQ.magnitude_Type << " " << EQ.get_magnitude() << " "
-        << EQ.earthquake_name << " [" << EQ.id << "] ("
-        << EQ.get_lon() << ", " << EQ.get_lat() << ", " << EQ.get_elv() << ")" << endl;
+        << std::setprecision(3) << std::fixed << EQ.get_ms() << " " << EQ.tz << " "
+        << EQ.get_magnitude_Type_str() << " " << std::fixed << std::setprecision(1)
+        << EQ.get_magnitude() << " " << EQ.earthquake_name << " [" << EQ.id << "] ("
+        << std::setprecision(2) << std::fixed << EQ.get_lon() << ", " << std::fixed
+        << EQ.get_lat() << ", " << std::setprecision(1) << EQ.get_elv() << ")" << endl;
 
     sign = 0;
-    
+
     for (int i = 0; i < valid; i++) {
         string s = stations[i].get_orientation();
         char or3[5] = {};
@@ -199,7 +201,7 @@ void process(ifstream & ifile, ofstream & log){
                 << '.' << stations[i].get_station_name() << '.'
                 << types_of_band_char[stations[i].get_type_of_band()]
                 << types_of_instrument_char[stations[i].get_type_of_instrument()]
-                << or3[j] 
+                << or3[j]
                 << endl;
 
             sign++;
@@ -221,7 +223,7 @@ int main() {
     stringstream str;
 
     open_output(log, "amir.log");
-    open_output(out, "amir.out");
+
 
     // Prompt user for input/output file
     cout << "Enter input file: ";
@@ -241,6 +243,7 @@ int main() {
     str << "Header read correctly!" << endl << endl;
     print(log, str);
 
+    open_output(out, "amir.out");
 
     read_data(in, out, log);
     process(in, out);

@@ -18,9 +18,9 @@
 // Broadband    (H)
 // Case Insensitive
 enum types_of_band {
-    Long_period  = 1,
+    Long_period = 1,
     Short_period = 2,
-    Broadband    = 3
+    Broadband = 3
 };
 
 // Case Insensitive

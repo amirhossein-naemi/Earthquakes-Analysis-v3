@@ -48,14 +48,14 @@ enum magnitude_type {
 
 class earthquake {
 public:
-    
+
     string id;
     string date;
     string time;
     string tz;
     string earthquake_name;
-    
-    magnitude_type magnitude_Type;
+
+    //magnitude_type magnitude_Type;
 
     double get_lat() { return lat; }
     void set_lat(double);
@@ -76,6 +76,11 @@ public:
     double get_magnitude() { return magnitude; }
     void set_magnitude(double yr);
     void set_magnitude(string day);
+
+    magnitude_type get_magnitude_Type() { return magnitude_Type; }
+    string get_magnitude_Type_str();
+    void set_magnitude_Type(string);
+    void set_magnitude_Type(magnitude_type);
 
     int get_year() { return yr; }
     void set_year(int);
@@ -104,9 +109,9 @@ public:
     void set_month(string);
     void set_month(int); // not necessary
     void set_month(months);
-    
+
     void set_dt(string str2, ofstream & log);
-    
+
     void set_mag(string lm, ofstream & log);
 
     //Proxy(My const* owner) : myOwner(owner) {}
@@ -126,7 +131,7 @@ private:
     //string tz;
     //string earthquake_name;
     months month;
-    //magnitude_type magnitude_Type;
+    magnitude_type magnitude_Type;
     double lat;
     double lon;
     double elv;
@@ -143,11 +148,12 @@ int str2int(const std::string& str);
 
 months mnth_str2enum(string mnth);
 
-void print(ofstream & , stringstream &, bool only2file = false);
+void print(ofstream &, stringstream &, bool only2file = false);
 
 inline void toupper_str(std::string& str);
 string toupper_str_C(std::string str);
 std::vector<std::string> &split(const std::string &s, char delim,
     std::vector<std::string> &elems);
 std::vector<std::string> split(const std::string &s, char delim);
+
 #endif

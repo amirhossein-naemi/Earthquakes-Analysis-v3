@@ -115,8 +115,8 @@ months mnth_str2enum(string mnth) {
         return November;
     case 12:
         return December;
-    //default:
-    //    return -1;
+        //default:
+        //    return -1;
     }
 }
 
@@ -146,7 +146,7 @@ void earthquake::set_month(months monthvalue) {
     {
         month = monthvalue;
     }
-        
+
     catch (int e)
     {
         cout << "Value of month is invalid" << endl;
@@ -162,10 +162,10 @@ void earthquake::set_month(months monthvalue) {
 void earthquake::set_day(int d) {
     try
     {
-            if (d < 1 || d > 31)
-                throw (20);
-    else
-        day = d;
+        if (d < 1 || d > 31)
+            throw (20);
+        else
+            day = d;
     }
     catch (int e)
     {
@@ -183,7 +183,7 @@ void earthquake::set_year(int y) {
         if (y < 1800 || y > 2100)
             throw (21);
         else
-        yr = y;
+            yr = y;
     }
     catch (int e)
     {
@@ -292,144 +292,8 @@ void earthquake::set_sec(string a){
 //
 //}
 
-bool isok_time(string str) {
-    string delim = "/";
-    return true;
-}
-
-bool isok_timezone(string str) {
-    toupper_str(str);
-    if (str == "PST" || str == "CST" || str == "EST" || str == "MST")
-        return true;
-    return false;
-}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// **************************** dt *****************************
-
-void earthquake::set_dt(string str2, ofstream & log)
-{
-
-    stringstream stro;
-    string dt, tm, tz;
-    string year, mnth, day, hour, min, sec, ms;
-
-    try {
-
-        char str[50];
-        strncpy(str, str2.c_str(), sizeof(str));
-        str[sizeof(str)-1] = 0;
-
-        replace(str, str + strlen(str), '/', ' ');
-        replace(str, str + strlen(str), ':', ' ');
-
-        std::vector<std::string> aln = split(str2, ' ');
-        std::vector<std::string> adt = split(aln[0], '/');
-        std::vector<std::string> atm = split(aln[1], ':');
-        std::vector<std::string> asc = split(atm[2], '.');
-
-        bool dateisOK = true;
-        bool timeisOK = true;
-
-        size_t n1 = adt.size();
-        for (size_t i = 0; i < n1; i++)
-        {
-            size_t n2 = adt[i].size();
-            for (size_t ii = 0; ii < n2; ii++)
-            {
-                if (!isdigit(adt[i][ii]))
-                    // there is an error
-                    dateisOK = false;
-            }
-        }
-
-        n1 = atm.size() - 1;
-        for (size_t i = 0; i < n1; i++)
-        {
-            size_t n2 = atm[i].size();
-            for (size_t ii = 0; ii < n2; ii++)
-            {
-                if (!isdigit(atm[i][ii]))
-                    // there is an error
-                    timeisOK = false;
-            }
-        }
-
-        if (dateisOK)
-        {
-            day = adt[1];
-            year = adt[2];
-            hour = atm[0];
-
-            //EQ.month = mnth_str2enum(adt[0]);
-            set_month(adt[0]);
-            //EQ.day = str2int(day);
-            set_day(day);
-            //EQ.yr = str2int(year);
-            set_year(year);
-        }
-
-        if (timeisOK)
-        {
-            min = atm[1];
-            sec = asc[0];
-            ms = asc[1];
-            tz = aln[2];
-
-            hr = str2int(hour);
-            min = str2int(min);
-            sec = str2int(sec);
-            ms = str2int(ms);
-            tz = tz;
-        }
-
-
-        //if (!isok_date() || !dateisOK)
-        //{
-        //    stro << "Error! date is invalid" << endl;
-        //    print(log, stro);
-        //    exit(0);
-        //}
-
-        //if (!isok_time(aln[1]) || !isok_timezone(tz) || !timeisOK)
-        //{
-        //    stro << "Error! time is invalid" << endl;
-        //    print(log, stro);
-        //    exit(0);
-        //}
-
-    }
-    catch (int n) {
-        stro << "Error! date/time is invalid" << endl;
-        print(log, stro);
-        exit(0);
-    }
-}
-
-
-
-
-
-
-
-
-// **************************** END *****************************
 void earthquake::set_ms(double a) {
     try
     {
@@ -455,13 +319,200 @@ void earthquake::set_ms(string a){
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// **************************** dt *****************************
+bool isok_timezone(string str) {
+    toupper_str(str);
+    if (str == "PST" || str == "CST" || str == "EST" || str == "MST")
+        return true;
+    return false;
+}
+
+void earthquake::set_dt(string str2, ofstream & log)
+{
+
+    stringstream stro;
+    string sdt, stm, stz;
+    string syear, smnth, sday, shour, smin, ssec, sms;
+
+    try {
+
+        char str[50];
+        strncpy(str, str2.c_str(), sizeof(str));
+        str[sizeof(str)-1] = 0;
+
+        replace(str, str + strlen(str), '/', ' ');
+        replace(str, str + strlen(str), ':', ' ');
+
+        std::vector<std::string> aln = split(str2, ' ');
+        std::vector<std::string> adt = split(aln[0], '/');
+        if (adt.size() != 3) throw (61);
+        std::vector<std::string> atm = split(aln[1], ':');
+        if (atm.size() != 3) throw (62);
+        std::vector<std::string> asc = split(atm[2], '.');
+
+
+        // date
+        size_t n1 = adt.size();
+        for (size_t i = 0; i < n1; i++)
+        {
+            size_t n2 = adt[i].size();
+            for (size_t ii = 0; ii < n2; ii++)
+            {
+                if (!isdigit(adt[i][ii]))
+                    throw (61);
+                // there is an error
+            }
+        }
+        sday = adt[1];
+        syear = adt[2];
+
+
+        //EQ.month = mnth_str2enum(adt[0]);
+        set_month(adt[0]);
+        //EQ.day = str2int(day);
+        set_day(sday);
+        //EQ.yr = str2int(year);
+        set_year(syear);
+
+
+        // time
+        n1 = atm.size() - 1;
+        for (size_t i = 0; i < n1; i++)
+        {
+            size_t n2 = atm[i].size();
+            for (size_t ii = 0; ii < n2; ii++)
+            {
+                if (!isdigit(atm[i][ii]))
+                    throw (62);
+                // there is an error
+            }
+        }
+
+        if (aln.size() != 3)
+            throw (63);
+        if (!isok_timezone(aln[2]))
+            throw (63);
+
+        shour = atm[0];
+        smin = atm[1];
+        ssec = asc[0];
+        sms = asc[1];
+        stz = aln[2];
+
+        hr = str2int(shour);
+        min = str2int(smin);
+        sec = str2int(ssec);
+        ms = str2int(sms);
+
+    }
+    catch (int e) {
+
+        if (e == 61){
+            stro << "Error! date is invalid" << endl;
+            print(log, stro);
+            exit(0);
+        }
+
+        if (e == 62){
+            stro << "Error! time is invalid" << endl;
+            print(log, stro);
+            exit(0);
+        }
+
+        if (e == 63){
+            stro << "Error! time zone is invalid" << endl;
+            print(log, stro);
+            exit(0);
+        }
+
+        stro << "Error! date / time is invalid" << endl;
+        print(log, stro);
+        exit(0);
+    }
+}
+
+
+
+
+
+
+
+
+// **************************** END *****************************
+//enum magnitude_type {
+//    ML, Ms, Mb, Mw
+//};
+bool isok_magnitude(string str){
+    toupper_str(str);
+    if (str == "ML" || str == "MS" || str == "MB" || str == "MW")
+        return true;
+    return false;
+}
+const char *magnitude_type2str[] = { "ML", "Ms", "Mb", "Mw" };
+int magnitude_Type_enum(string str) {
+
+    toupper_str(str);
+
+    if (str == "ML")
+        return 0;
+    if (str == "MS")
+        return 1;
+    if (str == "MB")
+        return 2;
+    if (str == "MW")
+        return 3;
+
+    return -1;
+}
+string earthquake::get_magnitude_Type_str() { return magnitude_type2str[magnitude_Type]; }
+void earthquake::set_magnitude_Type(magnitude_type a) {
+    try
+    {
+        magnitude_Type = a;
+    }
+
+    catch (int e)
+    {
+        cout << "Value of magnitude Type is invalid" << endl;
+    }
+}
+void earthquake::set_magnitude_Type(string a) {
+    try
+    {
+        set_magnitude_Type((magnitude_type)magnitude_Type_enum(a));
+    }
+    catch (int e)
+    {
+        cout << "Value of month is invalid" << endl;
+    }
+}
+
+
+
+
 void earthquake::set_magnitude(double a) {
     try
     {
-        if (a < 0 || a > 59)
+        if (a < 0 || a > 12)
             throw (22);
         else
-            sec = a;
+            magnitude = a;
     }
     catch (int e)
     {
@@ -483,10 +534,10 @@ void earthquake::set_magnitude(string a){
 void earthquake::set_lon(double a) {
     try
     {
-        if (a < 0 || a > 59)
+        if (a < -180 || a > +180)
             throw (22);
         else
-            sec = a;
+            lon = a;
     }
     catch (int e)
     {
@@ -508,10 +559,10 @@ void earthquake::set_lon(string a){
 void earthquake::set_lat(double a) {
     try
     {
-        if (a < 0 || a > 59)
+        if (a < -90 || a > 90)
             throw (22);
         else
-            sec = a;
+            lat = a;
     }
     catch (int e)
     {
@@ -533,10 +584,10 @@ void earthquake::set_lat(string a){
 void earthquake::set_elv(double a) {
     try
     {
-        if (a < 0 || a > 59)
+        if (a < 0 || a > 100000)
             throw (22);
         else
-            sec = a;
+            elv = a;
     }
     catch (int e)
     {
@@ -556,12 +607,7 @@ void earthquake::set_elv(string a){
 }
 
 
-bool isok_magnitude(string str){
-    toupper_str(str);
-    if (str == "ML" || str == "MS" || str == "MB" || str == "MW")
-        return true;
-    return false;
-}
+
 
 bool isok_magnitude_size(double magnitude) {
     if (magnitude <= 0)
@@ -599,11 +645,12 @@ void earthquake::set_mag(string lm, ofstream & log){
         print(log, str);
         exit(0);
     }
-
     set_magnitude(fmagnitude_size);
+    set_magnitude_Type(magnitude_type);
+
     char clongitude[10], clatitude[10], celevation[10];
 
-    strcpy(celevation, elevation.c_str());
+    strcpy(clongitude, longitude.c_str());
     strcpy(clatitude, latitude.c_str());
     strcpy(celevation, elevation.c_str());
 
