@@ -57,46 +57,58 @@ public:
     string earthquake_name;
     
     magnitude_type magnitude_Type;
-    double lat;
-    double lon;
-    double elv;
-    //int yr;
-    //int day;
-    //int hr;
-    //int min;
-    //int sec;
-    double ms;
-    double magnitude;
+
+    double get_lat() { return lat; }
+    void set_lat(double);
+    void set_lat(string);
+
+    double get_lon() { return lon; }
+    void set_lon(double);
+    void set_lon(string);
+
+    double get_elv() { return elv; }
+    void set_elv(double);
+    void set_elv(string);
+
+    double get_ms() { return ms; }
+    void set_ms(double);
+    void set_ms(string);
+
+    double get_magnitude() { return magnitude; }
+    void set_magnitude(double yr);
+    void set_magnitude(string day);
 
     int get_year() { return yr; }
-    void set_year(int yr);
-    void set_year(string day);
+    void set_year(int);
+    void set_year(string);
 
     int get_day() { return day; }
-    void set_day(int day);
-    void set_day(string day);
+    void set_day(int);
+    void set_day(string);
 
     int get_hour() { return hr; }
-    void set_hour(int h);
-    void set_hour(string h);
+    void set_hour(int);
+    void set_hour(string);
 
     int get_min() { return min; }
-    void set_min(int h);
-    void set_min(string h);
+    void set_min(int);
+    void set_min(string);
 
     int get_sec() { return sec; }
-    void set_sec(int h);
-    void set_sec(string h);
+    void set_sec(int);
+    void set_sec(string);
 
     months get_month() { return month; }
     //string get_month_str() { return mnth_enum2str(month); }
     string get_month_str();
     //months earthquake::get_month();
-    void set_month(string m);
-    void set_month(int m); // not necessary
-    void set_month(months monthvalue);
+    void set_month(string);
+    void set_month(int); // not necessary
+    void set_month(months);
     
     void set_dt(string str2, ofstream & log);
+    
+    void set_mag(string lm, ofstream & log);
 
     //Proxy(My const* owner) : myOwner(owner) {}
     //operator int() const
@@ -116,16 +128,16 @@ private:
     //string earthquake_name;
     months month;
     //magnitude_type magnitude_Type;
-    //double lat;
-    //double lon;
-    //double elv;
+    double lat;
+    double lon;
+    double elv;
     int yr;
     int day;
     int hr;
     int min;
     int sec;
-    //double ms;
-    //double magnitude;
+    double ms;
+    double magnitude;
 };
 
 int str2int(const std::string& str);

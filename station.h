@@ -54,29 +54,34 @@ enum Orientation {
 
 class station {
 public:
-    void station::set_network_code(network_codes network_codes_value);
-    network_codes station::get_network_code();
+    void set_network_code(network_codes network_codes_value);
+    network_codes get_network_code();
     network_codes       network_code;
     string              station_name;
     types_of_band       type_of_band;
     types_of_instrument type_of_instrument;
-    string              Orientation;
+    //string              Orientation;
+    string get_orientation() { return Orientation; }
+    void set_orientation(string);
+
 private:
     //network_codes       network_code;
     //string              station_name;
     //types_of_band       type_of_band;
     //types_of_instrument type_of_instrument;
-    //string              Orientation;
+    string              Orientation;
 };
 
 int network_code_enum(string str_net_code);
-
 int type_of_instrument_enum(string str_type_of_inst);
-
 int type_of_band_enum(string str_type_of_band);
-
 string type_of_inst_string(types_of_instrument type_of_inst);
 
-
+bool isok_Orientation(string);// temp remove
+bool isok_type_of_instrument(string);
+bool isok_type_of_band(string);
+bool isok_station_code(string);
+bool isok_network_code(string);
+bool is_there_any_err(station);
 
 #endif
