@@ -1,14 +1,17 @@
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //
 // Earthquakes' Events Analysis
 // By Amirhossein Naemi
 // March, 2015
 // GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v3
 //
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 #include "station.h"
-#include "earthquake.h" // to use some functions like toupper_str
+// to use some functions like toupper_str
+#include "earthquake.h"
+
+
 
 int network_code_enum(string str_net_code) {
     // Case Sensitive
@@ -26,10 +29,10 @@ int network_code_enum(string str_net_code) {
 }
 
 int type_of_band_enum(string str_type_of_band) {
-
+    
     str_type_of_band = toupper_str_C(str_type_of_band);
     toupper_str(str_type_of_band);
-
+    
     if (str_type_of_band == "LONG-PERIOD")
         return 0;
     if (str_type_of_band == "SHORT-PERIOD")
@@ -40,28 +43,25 @@ int type_of_band_enum(string str_type_of_band) {
 }
 
 string type_of_inst_string(types_of_instrument type_of_inst) {
-
+    
     switch (type_of_inst) {
-    case High_Gain:
-        return "High Gain";
-    case Low_Gain:
-        return "Low Gain";
-    case Accelerometer:
-        return "Accelerometer";
-    default:
-        return "ILLEGAL";
+        case High_Gain:
+            return "High Gain";
+        case Low_Gain:
+            return "Low Gain";
+        case Accelerometer:
+            return "Accelerometer";
+        default:
+            return "ILLEGAL";
     }
 }
 
-
-
-
 // check for rest of the errors
 bool is_there_any_err(station st) {
-
+    
     //if (st.get_network_code() <1 || st.get_network_code() >5) // err
     //    return true;
-
+    
     return false;
 }
 
@@ -79,25 +79,21 @@ bool isok_station_code(string str){
             if (!isupper(str[i]))
                 return false;
         }
-
+        
         // if return true, means everything is fine
         return true;
     }
-
+    
     if (str.size() == 5)
     {
         for (int i = 0; i < 5; i++)
-        if (!isdigit(str[i]))
-        {
-            // there is an error
-            return false;
-        }
-
+            if (!isdigit(str[i]))
+                return false;
+        
         // if return true, means everything is fine
         return true;
     }
-
-    // there is an error
+    
     return false;
 }
 
@@ -108,26 +104,22 @@ bool isok_Orientation(string str){
     // numeric, but not a combination of both):
     // N, E, or Z (one, two or three chars)
     // 1, 2, or 3 (one, two or three chars)
-
+    
     toupper_str(str);
     size_t n = str.size();
     if (!isdigit(str[0]))
     {
         for (size_t i = 0; i < n; i++)
-        {
             if (!(str[i] == 'N' || str[i] == 'E' || str[i] == 'Z'))
-                return false; // there is an error
-        }
+                return false;
     }
     else
     {
         for (size_t i = 0; i < n; i++)
-        {
             if (!(str[i] == '1' || str[i] == '2' || str[i] == '3'))
-                return false; // there is an error
-        }
+                return false;
     }
-
+    
     return true;
 }
 
@@ -138,7 +130,7 @@ bool station::set_orientation(string a) {
             throw (51);
         else
             Orientation = a;
-
+        
         return true;
     }
     catch (int e)
@@ -168,7 +160,7 @@ bool station::set_station_name(string a) {
 
 
 bool isok_network_code(string str){
-    // Network code: Case sensitive: 2 characters. Must be in capital letters to
+    // Network code Case sensitive: 2 characters. Must be in capital letters to
     // be valid. It can be any of the following:
     // network_code network_code;
     // string network_code;
@@ -188,10 +180,11 @@ bool isok_network_code(string str){
     return false;
 }
 
+string network_codes_str[5] = { "CE", "CI", "FA", "NP", "WR" };
+string station::get_network_code_str(){
+    return network_codes_str[network_code];
+}
 
-//network_codes station::get_network_code(){
-//    return CE;
-//}
 bool station::set_network_code(network_codes network_codes_value){
     try
     {
@@ -204,6 +197,7 @@ bool station::set_network_code(network_codes network_codes_value){
         return false;
     }
 }
+
 bool station::set_network_code(string network_codes_value){
     try
     {
@@ -220,11 +214,8 @@ bool station::set_network_code(string network_codes_value){
     }
 }
 
-
-
-
 bool isok_type_of_band(string str){
-
+    
     // Type of band: Case insensitive: One word. It can be any of the following
     // to be valid (the code in
     // parenthesis is for later reference):
@@ -262,8 +253,6 @@ bool station::set_type_of_band(string a){
     }
 }
 
-
-
 int type_of_instrument_enum(string str_type_of_inst) {
     toupper_str(str_type_of_inst);
     //Case insensitive
@@ -276,17 +265,15 @@ int type_of_instrument_enum(string str_type_of_inst) {
     return -1;
 }
 
-
 bool isok_type_of_instrument(string str){
     // Type of instrument: Case insensitive: One word. It can be any of the
     // following to be valid (the code
     // in parenthesis is for later reference):
-    // type_of_instrument type_of_instrument;
-    // string type_of_instrument;
-    types_of_instrument t = (types_of_instrument)type_of_instrument_enum(str);
-    if (t<0 || t>5) return false;
+    //types_of_instrument t = (types_of_instrument)type_of_instrument_enum(str);
+    //if (t<0 || t>5) return false;
     return true;
 }
+
 bool station::set_type_of_instrument(types_of_instrument a) {
     try
     {
@@ -299,6 +286,7 @@ bool station::set_type_of_instrument(types_of_instrument a) {
         return false;
     }
 }
+
 bool station::set_type_of_instrument(string a){
     try
     {
@@ -316,6 +304,17 @@ bool station::set_type_of_instrument(string a){
     }
 }
 
+string types_of_instrument_strf[3] = { "High_Gain", "Low_Gain",
+    "Accelerometer" };
+string types_of_instrument_str[3] = { "H", "L", "N" };
+char types_of_instrument_char[3] = { 'H', 'L', 'N' };
+string station::get_type_of_instrument_str(){
+    return types_of_instrument_str[type_of_instrument];
+}
 
-
-
+string types_of_band_strf[3] = { "Longperiod", "Shortperiod", "Broadband" };
+string types_of_band_str[3] = { "L", "B", "H" };
+char types_of_band_char[3] = { 'L', 'B', 'H' };
+string station::get_type_of_band_str(){
+    return types_of_band_str[type_of_band];
+}

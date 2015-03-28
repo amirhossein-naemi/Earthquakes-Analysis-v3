@@ -1,123 +1,88 @@
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 //
 // Earthquakes' Events Analysis
 // By Amirhossein Naemi
 // March, 2015
 // GIT: https://github.com/amirhossein-naemi/Earthquakes-Analysis-v3
 //
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 #include "earthquake.h"
-
-
 
 int str2int(const std::string& str)
 {
     int result = 0;
-
+    
     std::string::const_iterator i = str.begin();
-
+    
     if (i == str.end())
         return false;
-
+    
     bool negative = false;
-
+    
     if (*i == '-')
     {
         negative = true;
         ++i;
-
+        
         if (i == str.end())
             return false;
     }
-
+    
     result = 0;
-
+    
     for (; i != str.end(); ++i)
     {
         if (*i < '0' || *i > '9')
             return false;
-
+        
         result *= 10;
         result += *i - '0';
     }
-
+    
     if (negative)
         result = -result;
-
+    
     return result;
 }
 
 
 // **************************** month *****************************
-const char *months2str[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+const char *months2str[] = { "January", "February", "March", "April", "May",
+    "June", "July", "August", "September", "October", "November", "December" };
 string earthquake::get_month_str() { return months2str[month]; }
 
-
-//string mnth_enum2str(months mnth) {// not nec
-//
-//    switch (mnth) {
-//    case January:
-//        return "January";
-//    case February:
-//        return "February";
-//    case March:
-//        return "March";
-//    case April:
-//        return "April";
-//    case May:
-//        return "May";
-//    case June:
-//        return "June";
-//    case July:
-//        return "July";
-//    case August:
-//        return "August";
-//    case September:
-//        return "September";
-//    case October:
-//        return "October";
-//    case November:
-//        return "November";
-//    case December:
-//        return "December";
-//    default:
-//        return "ILLEGAL";
-//    }
-//}
-
 months mnth_str2enum(string mnth) {
-
+    
     int imnth = str2int(mnth);
-
+    
     switch (imnth) {
-    case 1:
-        return January;
-    case 2:
-        return February;
-    case 3:
-        return March;
-    case 4:
-        return April;
-    case 5:
-        return May;
-    case 6:
-        return June;
-    case 7:
-        return July;
-    case 8:
-        return August;
-    case 9:
-        return September;
-    case 10:
-        return  October;
-    case 11:
-        return November;
-    case 12:
-        return December;
-        //default:
-        //    return -1;
+        case 1:
+            return January;
+        case 2:
+            return February;
+        case 3:
+            return March;
+        case 4:
+            return April;
+        case 5:
+            return May;
+        case 6:
+            return June;
+        case 7:
+            return July;
+        case 8:
+            return August;
+        case 9:
+            return September;
+        case 10:
+            return  October;
+        case 11:
+            return November;
+        case 12:
+            return December;
     }
+    return December;
 }
 
 void earthquake::set_month(string m) {
@@ -130,33 +95,17 @@ void earthquake::set_month(string m) {
         cout << "Value of month is invalid" << endl;
     }
 }
-void earthquake::set_month(int m2) {
-
-    if (m2 < 1 || m2 > 12)
-        cout << "Value of month is invalid" << endl;
-    else
-    {
-        months m = static_cast<months>(m2);
-        month = m;
-    }
-
-}
 void earthquake::set_month(months monthvalue) {
     try
     {
         month = monthvalue;
     }
-
+    
     catch (int e)
     {
         cout << "Value of month is invalid" << endl;
     }
 }
-//months earthquake::get_month(){
-//    return January;
-//}
-
-// **************************** END *****************************
 
 // **************************** day *****************************
 void earthquake::set_day(int d) {
@@ -172,6 +121,7 @@ void earthquake::set_day(int d) {
         cout << "Value of dayy is invalid" << endl;
     }
 }
+
 void earthquake::set_day(string a){
     int b = str2int(a);
     set_day(b);
@@ -191,6 +141,7 @@ void earthquake::set_year(int y) {
         cout << "Value of year is invalid" << e << endl;
     }
 }
+
 void earthquake::set_year(string a){
     try
     {
@@ -216,6 +167,7 @@ void earthquake::set_hour(int a) {
         cout << "Value of hour is invalid" << e << endl;
     }
 }
+
 void earthquake::set_hour(string a){
     try
     {
@@ -227,7 +179,6 @@ void earthquake::set_hour(string a){
         set_hour(-1);
     }
 }
-
 
 void earthquake::set_min(int a) {
     try
@@ -242,6 +193,7 @@ void earthquake::set_min(int a) {
         cout << "Value of minute is invalid" << e << endl;
     }
 }
+
 void earthquake::set_min(string a){
     try
     {
@@ -253,7 +205,6 @@ void earthquake::set_min(string a){
         set_min(-1);
     }
 }
-
 
 void earthquake::set_sec(int a) {
     try
@@ -268,6 +219,7 @@ void earthquake::set_sec(int a) {
         cout << "Value of second is invalid" << e << endl;
     }
 }
+
 void earthquake::set_sec(string a){
     try
     {
@@ -279,20 +231,6 @@ void earthquake::set_sec(string a){
         set_sec(-1);
     }
 }
-
-//bool isok_date() {
-//
-//    if (EQ.yr > 2100 || EQ.yr<1900)
-//        return false;
-//
-//    if (EQ.day>31 || EQ.day < 1)
-//        return false;
-//
-//    return true;
-//
-//}
-
-
 
 void earthquake::set_ms(double a) {
     try
@@ -307,6 +245,7 @@ void earthquake::set_ms(double a) {
         cout << "Value of ms is invalid" << e << endl;
     }
 }
+
 void earthquake::set_ms(string a){
     try
     {
@@ -319,22 +258,6 @@ void earthquake::set_ms(string a){
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // **************************** dt *****************************
 bool isok_timezone(string str) {
     toupper_str(str);
@@ -345,28 +268,28 @@ bool isok_timezone(string str) {
 
 void earthquake::set_dt(string str2, ofstream & log)
 {
-
+    
     stringstream stro;
     string sdt, stm, stz;
     string syear, smnth, sday, shour, smin, ssec, sms;
-
+    
     try {
-
+        
         char str[50];
         strncpy(str, str2.c_str(), sizeof(str));
         str[sizeof(str)-1] = 0;
-
+        
         replace(str, str + strlen(str), '/', ' ');
         replace(str, str + strlen(str), ':', ' ');
-
+        
         std::vector<std::string> aln = split(str2, ' ');
         std::vector<std::string> adt = split(aln[0], '/');
         if (adt.size() != 3) throw (61);
         std::vector<std::string> atm = split(aln[1], ':');
         if (atm.size() != 3) throw (62);
         std::vector<std::string> asc = split(atm[2], '.');
-
-
+        
+        
         // date
         size_t n1 = adt.size();
         for (size_t i = 0; i < n1; i++)
@@ -381,16 +304,16 @@ void earthquake::set_dt(string str2, ofstream & log)
         }
         sday = adt[1];
         syear = adt[2];
-
-
+        
+        
         //EQ.month = mnth_str2enum(adt[0]);
         set_month(adt[0]);
         //EQ.day = str2int(day);
         set_day(sday);
         //EQ.yr = str2int(year);
         set_year(syear);
-
-
+        
+        
         // time
         n1 = atm.size() - 1;
         for (size_t i = 0; i < n1; i++)
@@ -403,56 +326,49 @@ void earthquake::set_dt(string str2, ofstream & log)
                 // there is an error
             }
         }
-
+        
         if (aln.size() != 3)
             throw (63);
         if (!isok_timezone(aln[2]))
             throw (63);
-
+        
         shour = atm[0];
         smin = atm[1];
         ssec = asc[0];
         sms = asc[1];
         stz = aln[2];
-
+        
         hr = str2int(shour);
         min = str2int(smin);
         sec = str2int(ssec);
         ms = str2int(sms);
-
+        
     }
     catch (int e) {
-
+        
         if (e == 61){
             stro << "Error! date is invalid" << endl;
             print(log, stro);
             exit(0);
         }
-
+        
         if (e == 62){
             stro << "Error! time is invalid" << endl;
             print(log, stro);
             exit(0);
         }
-
+        
         if (e == 63){
             stro << "Error! time zone is invalid" << endl;
             print(log, stro);
             exit(0);
         }
-
+        
         stro << "Error! date / time is invalid" << endl;
         print(log, stro);
         exit(0);
     }
 }
-
-
-
-
-
-
-
 
 // **************************** END *****************************
 //enum magnitude_type {
@@ -466,9 +382,9 @@ bool isok_magnitude(string str){
 }
 const char *magnitude_type2str[] = { "ML", "Ms", "Mb", "Mw" };
 int magnitude_Type_enum(string str) {
-
+    
     toupper_str(str);
-
+    
     if (str == "ML")
         return 0;
     if (str == "MS")
@@ -477,16 +393,20 @@ int magnitude_Type_enum(string str) {
         return 2;
     if (str == "MW")
         return 3;
-
+    
     return -1;
 }
-string earthquake::get_magnitude_Type_str() { return magnitude_type2str[magnitude_Type]; }
+
+string earthquake::get_magnitude_Type_str() {
+    return magnitude_type2str[magnitude_Type];
+}
+
 void earthquake::set_magnitude_Type(magnitude_type a) {
     try
     {
         magnitude_Type = a;
     }
-
+    
     catch (int e)
     {
         cout << "Value of magnitude Type is invalid" << endl;
@@ -615,29 +535,29 @@ bool isok_magnitude_size(double magnitude) {
     return true;
 }
 void earthquake::set_mag(string lm, ofstream & log){
-
+    
     // Fourth row: epicenter location (three doubles: longitude, latitude, and
-    // depth), followed by the magnitude type and magnitude size (a string and a
+    // depth), followed by magnitude type and magnitude size (a string and a
     // float, respectively). e.g. -115.66 31.53 0.9 mw 4.9
-
+    
     char* pEnd;
     stringstream str;
     string longitude, latitude, elevation, geo, magnitude_type, magnitude_size;
     double fmagnitude_size;
-
+    
     //istringstream is not standard/not compatible with mingw
-
+    
     std::vector<std::string> astr = split(lm, ' ');
-
+    
     longitude = astr[0];
     latitude = astr[1];
     elevation = astr[2];
     magnitude_type = astr[3];
     magnitude_size = astr[4];
-
+    
     char cmagnitude_size[50];
     strcpy(cmagnitude_size, magnitude_size.c_str());
-
+    
     fmagnitude_size = std::strtod(cmagnitude_size, &pEnd);
     if (!isok_magnitude(magnitude_type))
     {
@@ -647,17 +567,17 @@ void earthquake::set_mag(string lm, ofstream & log){
     }
     set_magnitude(fmagnitude_size);
     set_magnitude_Type(magnitude_type);
-
+    
     char clongitude[10], clatitude[10], celevation[10];
-
+    
     strcpy(clongitude, longitude.c_str());
     strcpy(clatitude, latitude.c_str());
     strcpy(celevation, elevation.c_str());
-
+    
     set_lon(std::strtod(clongitude, &pEnd));
     set_lat(std::strtod(clatitude, &pEnd));
     set_elv(std::strtod(celevation, &pEnd));
-
+    
     if (!isok_magnitude_size(fmagnitude_size))
     {
         str << "Error! Magnitude must be real positive" << endl;
@@ -666,58 +586,51 @@ void earthquake::set_mag(string lm, ofstream & log){
     }
 }
 
-
-
-
-
-// **************************** general functions (put them on a seperate file?) *******************
-
-
-
+// ********** general functions (put them on a seperate file?) ****************
 
 void toupper_str(std::string& str) {
-
+    
     for (size_t i = 0; i < str.size(); ++i)
         str[i] = toupper(str[i]);
-
+    
 }
 
 string toupper_str_C(std::string str) {
-
+    
     toupper_str(str);
-
+    
     return str;
 }
 
 std::vector<std::string> &split(const std::string &s, char delim,
-    std::vector<std::string> &elems) {
-
+                                std::vector<std::string> &elems) {
+    
     std::stringstream ss(s);
     std::string item;
     while (std::getline(ss, item, delim)) {
         elems.push_back(item);
     }
-
+    
     return elems;
 }
 
 std::vector<std::string> split(const std::string &s, char delim) {
-
+    
     std::vector<std::string> elems;
     split(s, delim, elems);
-
+    
     return elems;
 }
 
 void print(ofstream & o, stringstream & txt, bool only2file) {
-
+    
     std::cout.precision(3);
     o.precision(3);
-
+    
     if (!only2file) cout << txt.str();
-
+    
     o << txt.str();
-
+    
     txt.str(std::string());
     txt.clear();
 }
