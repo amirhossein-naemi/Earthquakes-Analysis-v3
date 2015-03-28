@@ -11,8 +11,6 @@
 // to use some functions like toupper_str
 #include "earthquake.h"
 
-
-
 int network_code_enum(string str_net_code) {
     // Case Sensitive
     if (str_net_code == "CE")
@@ -156,15 +154,8 @@ bool station::set_station_name(string a) {
     }
 }
 
-
-
-
 bool isok_network_code(string str){
-    // Network code Case sensitive: 2 characters. Must be in capital letters to
-    // be valid. It can be any of the following:
-    // network_code network_code;
-    // string network_code;
-    // char network_code;
+
     if (str.size() == 2)
     {
         for (int i = 0; i < 2; i++)
@@ -265,15 +256,6 @@ int type_of_instrument_enum(string str_type_of_inst) {
     return -1;
 }
 
-bool isok_type_of_instrument(string str){
-    // Type of instrument: Case insensitive: One word. It can be any of the
-    // following to be valid (the code
-    // in parenthesis is for later reference):
-    //types_of_instrument t = (types_of_instrument)type_of_instrument_enum(str);
-    //if (t<0 || t>5) return false;
-    return true;
-}
-
 bool station::set_type_of_instrument(types_of_instrument a) {
     try
     {
@@ -290,10 +272,7 @@ bool station::set_type_of_instrument(types_of_instrument a) {
 bool station::set_type_of_instrument(string a){
     try
     {
-        if (!isok_type_of_instrument(a))
-            throw (51);
-        else
-            type_of_instrument =
+        type_of_instrument =
             (types_of_instrument)type_of_instrument_enum(a);
         return true;
     }

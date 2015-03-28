@@ -22,7 +22,6 @@
 
 using namespace std;
 
-
 //string mnth_enum2str(months mnth);
 
 enum months {
@@ -37,13 +36,6 @@ enum magnitude_type {
 
 class earthquake {
 public:
-    
-    string id;
-    string date;
-    string time;
-    string tz;
-    string earthquake_name;
-    
     double get_lat() { return lat; }
     void set_lat(double);
     void set_lat(string);
@@ -96,35 +88,35 @@ public:
     
     void set_dt(string str2, ofstream & log);
     void set_mag(string lm, ofstream & log);
-    
+
+    string id;
+    string date;
+    string time;
+    string tz;
+    string earthquake_name;
+
 private:
-    //string id;
-    //string date;
-    //string time;
-    //string tz;
-    //string earthquake_name;
     months month;
     magnitude_type magnitude_Type;
     double lat;
     double lon;
     double elv;
-    int yr;
-    int day;
-    int hr;
-    int min;
-    int sec;
+    int    yr;
+    int    day;
+    int    hr;
+    int    min;
+    int    sec;
     double ms;
     double magnitude;
 };
 
 int str2int(const std::string& str);
-
 months mnth_str2enum(string mnth);
-
 void print(ofstream &, stringstream &, bool only2file = false);
 
 void toupper_str(std::string&);
 string toupper_str_C(std::string str);
+
 std::vector<std::string> &split(const std::string &s, char delim,
                                 std::vector<std::string> &elems);
 std::vector<std::string> split(const std::string &s, char delim);

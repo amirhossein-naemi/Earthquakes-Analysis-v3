@@ -57,15 +57,13 @@ void read_header(ifstream & in, ofstream & log) {
     EQ.set_dt(ldt, log);
     EQ.set_mag(lm, log);
     
-    // First row: Event ID
     str << eID << endl;
     print(log, str);
     str.clear();
-    
+
     EQ.earthquake_name = lnam;
     EQ.id = lID;
-    
-    // Third row: Name of the earthquake (may be multiple words)
+
     str << lnam << endl;
     print(log, str, true);
 }
@@ -77,7 +75,6 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
     station   eqtmp;
     int  cnt = 0, i = 0;
     bool noerr;
-    bool other_err = false;
     
     while (in >> eqnet) {
         cnt++;
@@ -126,20 +123,16 @@ void read_data(ifstream & in, ofstream & out, ofstream & log) {
                 print(log, str);
             }
             
+            if (is_there_any_err(eqtmp))
+                throw (30);
         }
         catch (int e)
         {
             // any other errors
-            other_err = true;
+            noerr = false;
             cout << "An exception occurred. Exception Nr. " << e << '\n';
         }
-        
-        if (is_there_any_err(eqtmp))
-            noerr = false;
-        
-        if (other_err)
-            noerr = false;
-        
+
         if (noerr) {
             stations[i] = eqtmp;
             i++;
@@ -179,8 +172,8 @@ void process(ifstream & ifile, ofstream & log){
         for (size_t j = 0; j < n; j++) {
             
             str2 << EQ.id << '.'
-            << stations[i].get_network_code_str()
-            << '.' << stations[i].get_station_name() << '.'
+            << stations[i].get_network_code_str() << '.'
+            << stations[i].get_station_name() << '.'
             << stations[i].get_type_of_band_str()
             << stations[i].get_type_of_instrument_str()
             << s[j] << endl;
@@ -204,7 +197,6 @@ int main() {
     stringstream str;
     
     open_output(log, "amir.log");
-    
     
     // Prompt user for input/output file
     cout << "Enter input file: ";
@@ -231,8 +223,8 @@ int main() {
     print(out, str);
     
     str << endl << "Total invalid entries ignored: " << setw(2) << invalid
-    << endl << "Total valid entries read: " << setw(7) << valid << endl
-    << "Total signals produced: " << setw(9) << sign << endl;
+        << endl << "Total valid entries read: "      << setw(7) << valid 
+        << endl << "Total signals produced: "        << setw(9) << sign << endl;
     
     print(log, str);
     
